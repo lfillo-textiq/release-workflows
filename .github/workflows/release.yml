@@ -1,1 +1,33 @@
 
+name: Release
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: "Prerelease version (e.g 1.2.3)"
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout pre-release branch
+        uses: actions/checkout@v2
+        with:
+          ref: "${{ github.event.inputs.version }}-alpha"
+      
+      - name: Create Github Tag and Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: "${{ github.event.inputs.version }}"
+          name: "${{ github.event.repository.name }} v${{ github.event.inputs.version }}"
+            
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: "${{ github.event.repository.name }}:${{ github.event.inputs.version }}"
+            
+      
