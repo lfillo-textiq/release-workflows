@@ -10,7 +10,7 @@ on:
         type: string
 
 jobs:
-  release:
+  execute:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout pre-release branch
