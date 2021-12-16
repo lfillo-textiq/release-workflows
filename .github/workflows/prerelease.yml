@@ -9,7 +9,7 @@ on:
         type: string
 
 jobs:
-  release:
+  prerelease:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
