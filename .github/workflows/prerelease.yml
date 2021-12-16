@@ -1,0 +1,27 @@
+name: Pre-Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version Candidate (e.g 1.2.3)"
+        required: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Validates that the input version is valid semver
+        uses: rubenesp87/semver-validation-action@0.0.6
+        with:
+          version: "${{ github.event.inputs.version }}"
+          
+      - name: Creates a new branch with the input version suffixed with '-alpha'
+        uses: peterjgrainger/action-create-branch@v2.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: "${{ github.event.inputs.version }}-alpha"      
+      
