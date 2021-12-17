@@ -20,9 +20,7 @@ jobs:
           
       - name: Parse version from branch name
         id: parse
-        run: |
-          VERSION=$(echo "$BRANCH" | perl -pe '($_)=/([0-9]+([.][0-9]+)+)/')
-          echo '::set-output name=version::"$VERSION"'
+        run: echo '::set-output name=version::$(echo "$BRANCH" | perl -pe "($_)=/([0-9]+([.][0-9]+)+)/")'
         env: 
           BRANCH: "${{ github.event.inputs.branch }}"
           
