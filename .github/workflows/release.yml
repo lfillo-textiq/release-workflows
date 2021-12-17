@@ -3,11 +3,6 @@ name: Release
 
 on:
   workflow_call:
-    inputs:
-      branch:
-        description: "Release candidate branch name (e.g 1.2.3-alpha)"
-        required: true
-        type: string
 
 jobs:
   execute:
@@ -16,7 +11,7 @@ jobs:
       - name: Checkout prerelease branch
         uses: actions/checkout@v2
         with:
-          ref: "${{ github.event.inputs.branch }}"
+          ref: "${{ github.ref }}"
           
       - name: Parse version from ref name
         id: parse
