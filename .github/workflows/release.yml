@@ -5,7 +5,7 @@ on:
   workflow_call:
     inputs:
       version:
-        description: "Prerelease version (e.g 1.2.3)"
+        description: "Release Version, must have prerelease branch (e.g 1.2.3 where 1.2.3-alpha exists)"
         required: true
         type: string
 
