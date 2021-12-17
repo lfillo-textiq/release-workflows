@@ -16,13 +16,15 @@ jobs:
       - name: Checkout prerelease branch
         uses: actions/checkout@v2
         with:
-          ref: "${{ github.event.inputs.version }}"
+          ref: "${{ github.event.inputs.branch }}"
           
       - name: Parse version from branch name
         id: parse
         run: |
           VERSION=$(echo $BRANCH | perl -pe '($_)=/([0-9]+([.][0-9]+)+)/')
-          echo '::set-output name=version::$VERSION    
+          echo '::set-output name=version::$VERSION 
+        env: 
+          BRANCH: "${{ github.event.inputs.branch }}"
           
       - name: Validates that the parsed version is valid semver
         uses: rubenesp87/semver-validation-action@0.0.6
