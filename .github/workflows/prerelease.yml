@@ -12,7 +12,11 @@ jobs:
   execute:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+    
+      - name: Checkout the branch that this workflow was called on
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
 
       - name: Validates that the input version is valid semver
         uses: rubenesp87/semver-validation-action@0.0.6
